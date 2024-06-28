@@ -1,0 +1,60 @@
+{% extends 'admin/base_site.html' %}
+
+{% block title %}My Site Admin Dashboard{% endblock %}
+
+{% block branding %}
+  <h1 id="site-name">My Site Admin Dashboard</h1>
+{% endblock %}
+
+{% block nav-global %}
+  <li>
+    <a href="{% url 'admin:blog_post_changelist' %}">Blog Posts</a>
+  </li>
+  <li>
+    <a href="{% url 'admin:auth_user_changelist' %}">Users</a>
+  </li>
+  <li>
+    <a href="{% url 'search' %}">Search Fixers</a>
+  </li>
+{% endblock %}
+
+{% block content %}
+  <div class="module">
+    <h2>Welcome to the Admin Dashboard</h2>
+    <p>From here, you can manage blog posts, users, and fixer profiles on the site.</p>
+  </div>
+
+  <div class="module">
+    <h2>Blog Posts</h2>
+    <ul>
+      <li><a href="{% url 'admin:blog_post_add' %}">Add Blog Post</a></li>
+      <li><a href="{% url 'admin:blog_post_changelist' %}">View/Edit Blog Posts</a></li>
+    </ul>
+  </div>
+
+  <div class="module">
+    <h2>Users</h2>
+    <ul>
+      <li><a href="{% url 'admin:auth_user_add' %}">Add User</a></li>
+      <li><a href="{% url 'admin:auth_user_changelist' %}">View/Edit Users</a></li>
+    </ul>
+  </div>
+
+  <div class="module">
+    <h2>Fixers</h2>
+    <ul>
+      <li><a href="{% url 'search' %}">Search Fixers</a></li>
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'profile' %}">View My Profile</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% if request.user.is_authenticated %}
+    <div class="module">
+      <h2>Welcome, {{ request.user.username }}</h2>
+      <p><a href="{% url 'logout' %}">Logout</a></p>
+    </div>
+  {% endif %}
+
+{% endblock %}

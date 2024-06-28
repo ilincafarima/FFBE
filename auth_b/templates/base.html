@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FIXIFY{% endblock %}</title>
+    <link rel="stylesheet" href="{% static '/styles.css' %}">
+</head>
+<body>
+    <header class="header-outer">
+        <div class="header-inner responsive-wrapper">
+            <div class="header-logo">
+                <h1>
+                    <span class="white-text">FIXI</span><span class="yellow-text">FY.</span>
+                </h1>
+            </div>
+            <nav class="header-navigation">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">Profile</a>
+                    <a href="{% url 'blog_list' %}">Blog</a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Menu</button>
+                        <div class="dropdown-content">
+                            <a href="#">Settings</a>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'register' %}">Înregistrează-te</a>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'blog_list' %}">Blog</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+  
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer__addr">
+            <h1 class="footer__logo">FIXIFY</h1>
+
+            <h2>Contact</h2>
+
+            <address>
+                Chișinău, Moldova<br>
+                <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+            </address>
+        </div>
+
+        <ul class="footer__nav">
+            <li class="nav__item">
+                <h2 class="nav__title">Legal</h2>
+                <ul class="nav__ul">
+                    <li>
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="#">Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="#">Sitemap</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="legal">
+            <p>&copy; Fixify. All rights reserved.</p>
+            <div class="legal__links"></div>
+        </div>
+    </footer>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAk4UXZBrLB4iqoB4RDHtr97M7GJ9MG6R4",
+            authDomain: "fixify-e8443.firebaseapp.com",
+            projectId: "fixify-e8443",
+            storageBucket: "fixify-e8443.appspot.com",
+            messagingSenderId: "81668032969",
+            appId: "1:81668032969:web:0376cecec52b570bf24018",
+            measurementId: "G-44VNTSEWJX"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+</body>
+</html>

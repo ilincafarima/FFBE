@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+        <div class="home-container">
+            <p class="home-text">CONSTRUIND LEGĂTURI, CONSTRUIM VIITORUL</p>
+
+            <div class="search-bar">
+            <form action="{% url 'search' %}" method="GET">
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            </div>
+        </div>
+        <nav class="best--fix">
+            <h2>Best Workers</h2>
+            <div class="best-workers">
+                <div class="worker">
+                    <div class="worker-photo"></div>
+                    <p class="worker-name">John Doe</p>
+                </div>
+                <div class="worker">
+                    <div class="worker-photo"></div>
+                    <p class="worker-name">Jane Smith</p>
+                </div>
+                <div class="worker">
+                    <div class="worker-photo"></div>
+                    <p class="worker-name">Bob Johnson</p>
+                </div>
+            </div>
+        </nav>
+
+        <nav class="best--fix">
+            <h2>Ce servicii oferim</h2>
+            <div class="best-workers">
+                <div class="worker">
+                    <div class="worker-photo"></div>
+                    <p class="worker-name">Electrical</p>
+                </div>
+                <div class="worker">
+                    <div class="worker-photo"></div>
+                    <p class="worker-name">Plumbers</p>
+                </div>
+                <div class="worker">
+                    <div class="worker-photo"></div>
+                    <p class="worker-name">Cleaning</p>
+                </div>
+            </div>
+        </nav>
+
+        <p class="home-news">Noutăți</p>
+
+        <div class="container">
+            {% for post in last_three_posts %}
+            <nav class="blog-post">
+                <h3><a href="{% url 'blog_detail' post.id %}">{{ post.title }}</a></h3>
+            </nav>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
