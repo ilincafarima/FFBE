@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm, SearchForm, ModifyForm
+from .forms import *
 from django.shortcuts import redirect
 from .models import CustomUser
 from django.contrib.auth import authenticate, login
@@ -23,6 +23,19 @@ config = {
 firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 database = firebase.database()
+
+def home(request):
+    # Fetch top 3 workers based on rating
+    best_workers = CustomUser.objects.filter(role=CustomUser.WORKER).order_by('-rating')[:3]
+    
+    # Fetch the last three blog posts
+    last_three_posts = BlogPost.objects.all().order_by('-created_at')[:3]
+
+    context = {
+        'best_workers': best_workers,
+        'last_three_posts': last_three_posts,
+    }
+    return render(request, 'home.html', context)
 
 @csrf_exempt
 def login_view(request):

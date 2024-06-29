@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class CustomUser(AbstractUser):
     CLIENT = 'client'
@@ -17,9 +18,22 @@ class CustomUser(AbstractUser):
         (PLUS, 'Plus'),
         (PREMIUM, 'Premium'),
     ]
+    WORKER_TYPE_CHOICES = [
+        ('electrician', 'Electrician'),
+        ('plumber', 'Plumber'),
+        ('cleaner', 'Cleaner'),
+    ]
+    
     membership_status = models.CharField(max_length=10, choices=MEMBERSHIP_TYPE, default=FREE)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=CLIENT)
-    worker_type = models.CharField(max_length=100, blank=True, null=True)
+    worker_type = models.CharField(max_length=100, choices=WORKER_TYPE_CHOICES, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    rating = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        validators=[MinValueValidator(1.0), MaxValueValidator(5.0)],
+        default=1.0
+    )
 
     # Add related_name to resolve clashes
     groups = models.ManyToManyField(
