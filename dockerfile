@@ -2,7 +2,7 @@
 FROM python:3.12
 
 # Set the working directory.
-WORKDIR /usr/src/app
+WORKDIR /FIXIFY/FIXIFY_PROD
 
 # Copy the requirements.txt file.
 COPY requirements.txt ./
