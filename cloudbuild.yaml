@@ -1,0 +1,22 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'node:16'
+    entrypoint: 'bash'
+    args: ['-c', 'npm install']
+
+  # Step 2: Run tests (if any)
+  - name: 'node:16'
+    entrypoint: 'bash'
+    args: ['-c', 'npm test']
+
+  # Step 3: Deploy Firebase functions
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: 'bash'
+    args: ['-c', 'firebase deploy --only functions --project fir-a0040']
+
+# Specify the service account to use for deployment
+serviceAccount: projects/fir-a0040/serviceAccounts/firebase-adminsdk-nb8vx@fir-a0040.iam.gserviceaccount.com
+
+# Set a timeout for the build process
+timeout: '600s'
+
