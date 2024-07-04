@@ -3,3 +3,5 @@ pyrebase
 Django==5.0.6
 pyrebase
 gunicorn
+Django>=3.2,<4.0
+pycryptodome

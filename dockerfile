@@ -1,20 +1,21 @@
-# Use the official Python image.
-FROM python:3.12
+FROM python:3.9
 
-# Set the working directory.
-WORKDIR /FIXIFY/FIXIFY_PROD
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Copy the requirements.txt file.
-COPY requirements.txt ./
+# Set work directory
+WORKDIR /app
 
-# Install dependencies.
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
-# Copy the rest of the project files.
-COPY . .
+# Copy project
+COPY . /app/
 
-# Expose port 8000 to the outside world.
+# Expose the port
 EXPOSE 8080
 
-# Run the Django development server.
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+# Run the application
+CMD gunicorn FIXIFY_PROD.wsgi:application --bind 0.0.0.0:$PORT
