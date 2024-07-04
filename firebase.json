@@ -82,5 +82,8 @@
   "remoteconfig": {
     "template": "remoteconfig.template.json"
   },
-  "extensions": {}
+  "extensions": {},
+  "storage": {
+    "rules": "storage.rules"
+  }
 }

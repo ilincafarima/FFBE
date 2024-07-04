@@ -24,7 +24,13 @@ SECRET_KEY = 'django-insecure-bw@ri@gzak%kxi+6htz4y(z=_(#&0(rva7yqhzap6n3=le2g+4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# Use the PORT environment variable, default to 8000
+PORT = int(os.getenv('PORT', 8000))
 
+# The development server
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+    
 ALLOWED_HOSTS = ["www.fixify.com", "fixify.com",]
 
 
